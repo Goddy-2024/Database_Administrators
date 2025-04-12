@@ -138,3 +138,87 @@ CREATE TABLE order_history (
     FOREIGN KEY (order_id) REFERENCES cust_order(order_id),
     FOREIGN KEY (status_id) REFERENCES order_status(order_status_id)
 );
+
+
+use bookstoremanagementsystem;
+
+-- -- -- Insert into country
+ INSERT INTO country (country_name) VALUES 
+('Kenya'), ('South Africa'), ('USA');
+
+-- -- -- Insert into address_status
+INSERT INTO address_status (status_name) VALUES 
+('Current'), ('former');
+
+-- -- -- Insert into address
+INSERT INTO address (street, city, state, postal_code, country_id) VALUES
+('123 Moi Avenue', 'Nairobi', 'Nairobi', '00100', 1),
+ ('45 Long Street', 'Cape Town', 'Western Cape', '8001', 2),
+('789 Broadway', 'New York', 'NY', '10003', 3);
+
+-- -- -- Insert into customer
+ INSERT INTO customer (first_name, last_name, email, phone) VALUES
+ ('Godswill', 'Omondi', 'gaoajuoga@gmail.com', '+254 740 275 539'),
+ ('Nompie', 'Mthombeni', 'nmbrotty@gmail.com', '+27 81 449 1343'),
+('Esther', 'Mungai', 'muigai.esthern@gmail.com', '+254 111 874203');
+
+-- -- -- Insert into customer_address
+INSERT INTO customer_address (customer_id, address_id, address_status_id) VALUES
+(1, 2, 1),
+(2, 2, 1),
+(3, 3, 1);
+
+-- -- Insert into publisher
+INSERT INTO publisher (name, contact_email, contact_phone) VALUES
+('Gerald Publishing', 'gerald@publish.com', '0700987654'),
+('Zablon Books', 'zablon@books.com', '0734567890');
+
+-- Insert into book_languag
+INSERT INTO book_language (language_name) VALUES 
+('English'), ('Swahili'), ('Zulu');
+
+-- -- Insert into author
+INSERT INTO author (first_name, last_name, bio) VALUES
+('Chinua', 'Achebe', 'Nigerian novelist and poet, best known for *Things Fall Apart*.'),
+('Ngũgĩ', 'wa Thiong’o', 'Kenyan writer and academic, wrote *Decolonising the Mind*.'),
+('Maya', 'Angelou', 'American poet and civil rights activist.');
+
+-- -- Insert into book
+INSERT INTO book (title, isbn, publication_year, price, language_id, publisher_id, stock_quantity) VALUES
+('Things Fall Apart', '9780141023380', 1958, 15.99, 1, 1, 50),
+('Petals of Blood', '9780435908444', 1977, 17.50, 2, 2, 30),
+ ('I Know Why the Caged Bird Sings', '9780345514400', 1969, 18.00, 1, 1, 40);
+
+-- -- Insert into book_author
+INSERT INTO book_author (book_id, author_id) VALUES
+(1, 1),
+(2, 2),
+(3, 3);
+
+-- -- Insert into shipping_method
+INSERT INTO shipping_method (method_name, shipping_cost) VALUE
+('Standard Shipping', 5.00),
+('Express Shipping', 10.00);
+
+-- -- Insert into order_status
+INSERT INTO order_status (status_name) VALUES
+('Pending'), ('Shipped'), ('Delivered'), ('Cancelled');
+
+-- -- Insert into cust_order
+INSERT INTO cust_order (customer_id, shipping_method_id, order_status_id, shipping_address_id, billing_address_id)
+ VALUES
+(1, 1, 1, 1, 1),
+ (2, 2, 2, 2, 2);
+
+-- -- Insert into order_line
+ INSERT INTO order_line (order_id, book_id, quantity, price_at_order_time) VALUES
+ (1, 1, 2, 15.99),
+(1, 2, 1, 17.50),
+(2, 3, 1, 18.00);
+
+-- Insert into order_history
+ INSERT INTO order_history (order_id, status_id) VALUES
+ (1, 1),
+(1, 2),
+(2, 2),
+(2, 3)
