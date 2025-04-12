@@ -77,3 +77,6 @@ Use `GRANT` and `REVOKE` statements to assign permissions based on roles.
    ```bash
    git clone https://github.com/your-username/bookstore-database.git
    cd bookstore-database
+# ACCESSING THE QUERIES
+- open the queries.sql file then comment out the undesired queries as per the guidelines
+
