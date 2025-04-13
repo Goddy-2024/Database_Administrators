@@ -236,7 +236,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON bookstoremanagementsystem.* TO 
 
 -- Grant staff role (limited to customer and order operations)
 -- Customer and Order management access
--- First create the roles if they don't exist
+--  The CREATE USER IF NOT EXISTS statement in MySQL is used to create a new user only if the specified user does not already exist
 CREATE ROLE IF NOT EXISTS 'bookstoreAdmin', 'bookstoreManager', 'bookstoreStaff', 'bookstoreReporter';
 
 -- Grant permissions to staff role (corrected GRANT spelling)
@@ -270,6 +270,7 @@ GRANT 'bookstoreStaff' TO 'staff_Esther'@'localhost';
 GRANT 'bookstoreReporter' TO 'analyst_goddy'@'localhost';
 
 -- Set default roles
+-- Default roles help enforce the principle of least privilege by ensuring users only have access to the privileges defined in their roles.
 SET DEFAULT ROLE ALL TO
     'admin_godswill'@'localhost',
     'manager_Nompie'@'localhost',
@@ -281,14 +282,15 @@ CREATE USER IF NOT EXISTS 'bookstoremanagementsystem_app'@'%' IDENTIFIED BY 'App
 GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON bookstoremanagementsystem.* TO 'bookstoremanagementsystem_app'@'%';
 
 -- Create read replica user (replace 'replica-server-ip' with actual IP)
+-- Replica users are essential in MySQL replication because they allow the replica server to connect to the source server securely and perform replication tasks
 CREATE USER IF NOT EXISTS 'replica_user'@'replica-server-ip' IDENTIFIED BY 'ReplicaPass123!';
 GRANT REPLICATION SLAVE, SELECT ON *.* TO 'replica_user'@'replica-server-ip';
 
--- Create backup user
+-- Create backup user 
 CREATE USER IF NOT EXISTS 'backup_user'@'localhost' IDENTIFIED BY 'BackupPass456!';
 GRANT SELECT, RELOAD, LOCK TABLES, REPLICATION CLIENT, SHOW VIEW, EVENT, TRIGGER ON *.* TO 'backup_user'@'localhost';
 
--- Flush privileges
+-- Flush privileges :This command ensures that any manual changes to the grant tables are applied immediately without needing to restart the MySQL server
 FLUSH PRIVILEGES;
 
 
